@@ -16,10 +16,6 @@
 """
 
 mac = "AAAA:BBBB:CCCC"
-list1=mac.split(":")
-num1=bin((int(list1[0], 16))) #C помощью функции int преобразуем 16-ое число в 10-ое
-num2=bin((int(list1[1], 16)))
-num3=bin((int(list1[2], 16)))
-result=num1[2::]+num2[2::]+num3[2::]
-print(result)
-#print(result=="101010101010101010111011101110111100110011001100") #Проверка
+
+bin_mac = "{:b}".format(int(mac.replace(":", ""), 16))
+print(bin_mac)

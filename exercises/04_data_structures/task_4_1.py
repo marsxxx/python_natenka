@@ -16,3 +16,12 @@
 """
 
 nat = "ip nat inside source list ACL interface FastEthernet0/1 overload"
+"""
+list1 = nat.split()
+string1 = "GigabitEthernet0/1"
+list1[list1.index("FastEthernet0/1")]=string1
+nat = str(list1)
+print (type(nat))
+"""
+nat = nat.replace("Fast", "Gigabit")
+print(nat)

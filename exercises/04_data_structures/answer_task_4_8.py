@@ -24,15 +24,12 @@
 Это не значит, что задание сделано правильно, просто на данном этапе сложно иначе
 проверять результат.
 """
-
 ip = "192.168.3.1"
-list1 = ip.split(".")
-ip1 = (int(list1[0]),int(list1[1]),int(list1[2]),int(list1[3]))
-num1 = int(list1[0])
-num2= int(list1[1])
-num3= int(list1[2])
-num4= int(list1[3])
-template = """{0:<8}  {1:<8}  {2:<8}  {3:<8}
-{0:>08b}  {1:>08b}  {2:>08b}  {3:>08b}
-"""
-print(template.format(num1,num2,num3,num4))
+
+octets = ip.split(".")
+
+output = """
+{0:<10}{1:<10}{2:<10}{3:<10}
+{0:08b}  {1:08b}  {2:08b}  {3:08b}"""
+
+print(output.format(int(octets[0]), int(octets[1]), int(octets[2]), int(octets[3])))
