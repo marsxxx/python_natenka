@@ -49,6 +49,7 @@ switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk allowed vlan 2,3,4,5
 """
+
 access_template = [
     "switchport mode access",
     "switchport access vlan {}",
@@ -63,17 +64,12 @@ trunk_template = [
     "switchport trunk allowed vlan {}",
 ]
 
+
+template = {"access": access_template, "trunk": trunk_template}
+
 mode = input("Введите режим работы интерфейса (access/trunk): ")
-inter = input("Введите тип и номер интерфейса: ")
-vlan = input("Введите номер влан(ов): ")
+interface = input("Введите тип и номер интерфейса: ")
+vlans = input("Введите номер влан(ов): ")
 
-access = "\n".join(access_template) #преобразовали список в строку
-trunk = "\n".join(trunk_template)
-
-modes = {   #создали словари, для вариантов вывода в зависимости от ввода
-    "access": access,
-    "trunk": trunk
-}
-
-print("interface {}".format(inter))
-print (modes[mode].format(vlan))    #вывели список из словоря по вводу пользователя и подставили vlan
+print(f"interface {interface}")
+print("\n".join(template[mode]).format(vlans))

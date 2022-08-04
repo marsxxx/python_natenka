@@ -50,3 +50,15 @@ london_co = {
         "routing": True,
     },
 }
+
+
+
+
+
+
+device = (input('Enter device name: ')) #получаем от пользователя имя устройства
+
+our_param = list(london_co[device].keys()) #получаем ключи подсловаря конкретного устройства и преобразуем их в список
+our_param = 'Enter parameter of device' + " (" + ", ".join(our_param)+"): " #преобразуем список в красивую строку
+param = (input(our_param))
+print(london_co[device][param])

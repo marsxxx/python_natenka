@@ -50,11 +50,8 @@ london_co = {
     },
 }
 
-device = (input('Enter device name: ')) #получаем от пользователя имя устройства
+device = input("Введите имя устройства: ")
+params = ", ".join(london_co[device].keys())
+parameter = input(f"Введите имя параметра ({params}): ")
 
-our_param = list(london_co[device].keys()) #получаем ключи подсловаря конкретного устройства и преобразуем их в список
-our_param = 'Enter parameter of device' + " (" + ", ".join(our_param)+"): " #преобразуем список в красивую строку
-param = (input(our_param))
-print(london_co[device].get(param,'Такого параметра нет')) #ключевой метод get
-#param_of_dev=london_co[device] #через переменную
-#print(param_of_dev.get(param,'Такого параметра нет'))
+print(london_co[device].get(parameter, "Такого параметра нет"))

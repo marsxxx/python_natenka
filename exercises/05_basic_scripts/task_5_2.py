@@ -30,3 +30,32 @@ Out[1]: '11111111111111111111111111110000'
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
+
+
+network = input('Введите IP-сеть в формате X.X.X.X/XX: ')
+list_net = network.split('/')
+octets = list_net[0].split('.')
+
+mask = int(list_net[1])
+left0 = 32 - mask
+maskbin = '1' * mask + "0" * left0
+oct1 = maskbin[0:8]
+oct2 = maskbin[8:16]
+oct3 = maskbin[16:24]
+oct4 = maskbin[24:32]
+
+doct1 = int(oct1, 2)
+doct2 = int(oct2, 2)
+doct3 = int(oct3, 2)
+doct4 = int(oct4, 2)
+
+
+template_net = '''Network:
+{0:<10} {1:<10} {2:<10} {3:<10}
+{0:>08b}   {1:>08b}   {2:>08b}   {3:>08b}
+Mask:
+/{4}
+{9:<10} {10:<10} {11:<10} {12:<10}
+{5:<8}   {6:<8}   {7:<8}   {8:<8}'''
+
+print(template_net.format(int(octets[0]), int(octets[1]), int(octets[2]), int(octets[3]), mask, oct1, oct2, oct3, oct4, doct1, doct2, doct3, doct4,))

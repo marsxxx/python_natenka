@@ -49,3 +49,55 @@ bin_ip = "00001010000000010000000111000011"
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+network = input('Введите IP-сеть в формате X.X.X.X/XX: ')   #ввод сети от пользователя
+list_net = network.split('/')                       #разделяем маску и хост
+octets = list_net[0].split('.')                     #разделяем октеты хоста
+
+hostoct1 = bin(int(octets[0])).replace("0b","")     #преобразуем октет хоста в двоичный формат
+hostoct2 = bin(int(octets[1])).replace("0b","")
+hostoct3 = bin(int(octets[2])).replace("0b","")
+hostoct4 = bin(int(octets[3])).replace("0b","")
+
+binoct1 = "0" * (8-len(hostoct1)) + hostoct1        #добавляем нули до 8 бит
+binoct2 = "0" * (8-len(hostoct2)) + hostoct2
+binoct3 = "0" * (8-len(hostoct3)) + hostoct3
+binoct4 = "0" * (8-len(hostoct4)) + hostoct4
+
+mask = int(list_net[1])                             #преобразуем префикс в число
+left0 = 32 - mask                                   #считаем количество нулей в маске
+maskbin = '1' * mask + "0" * left0                  #записываем маску в двоичном формате
+
+netbin = (binoct1 + binoct2 + binoct3 + binoct4)[0:mask] + "0" * left0      #из двоичной записи хоста берём количество бит соответсвующее маске, а остальное -> 0.
+
+netoct1 = netbin[0:8]           #разделяем сеть в двичном формате на октеты
+netoct2 = netbin[8:16]
+netoct3 = netbin[16:24]
+netoct4 = netbin[24:32]
+
+dnetoct1 = int(netoct1, 2)      #преобразуем октеты сети в десятичный формат
+dnetoct2 = int(netoct2, 2)
+dnetoct3 = int(netoct3, 2)
+dnetoct4 = int(netoct4, 2)
+
+
+oct1 = maskbin[0:8]             #разделяем маску на октеты
+oct2 = maskbin[8:16]
+oct3 = maskbin[16:24]
+oct4 = maskbin[24:32]
+
+doct1 = int(oct1, 2)            #преобразуем октет маски в десятичный формат
+doct2 = int(oct2, 2)
+doct3 = int(oct3, 2)
+doct4 = int(oct4, 2)
+
+
+template_net = '''Network:
+{0:<10} {1:<10} {2:<10} {3:<10}
+{4:<10} {5:<10} {6:<10} {7:<10}
+Mask:
+/{8}
+{13:<10} {14:<10} {15:<10} {16:<10}
+{9:<8}   {10:<8}   {11:<8}   {12:<8}'''
+
+print(template_net.format(dnetoct1, dnetoct2, dnetoct3, dnetoct4, netoct1, netoct2, netoct3, netoct4,
+mask, oct1, oct2, oct3, oct4, doct1, doct2, doct3, doct4,))
