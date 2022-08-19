@@ -15,17 +15,15 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+from sys import argv
 
 ignore = ["duplex", "alias", "configuration"]
 
-from sys import argv
-result = open(argv[2],'w')
+src_file, dst_file = argv[1], argv[2]
 
-with open(argv[1]) as f:
-    for line in f:
-        if line.startswith('!') or ignore[0] in line or ignore[1] in line or ignore[2] in line:
-            pass
-        else:
-            a = line.rstrip() + '\n'
-            result.write(a)
-result.close()
+with open(src_file) as src, open(dst_file, 'w') as dst:
+    for line in src:
+        words = line.split()
+        words_intersect = set(words) & set(ignore)
+        if not line.startswith("!") and not words_intersect:
+            dst.write(line)

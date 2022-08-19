@@ -40,3 +40,14 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+result=[]
+with open ('CAM_table.txt') as f:
+   for line in f:
+      if '.' in line:
+          line = line.split()#разбили строки на списки
+          line[0]=int(line[0])#преобразовали vlan в число, чтобы правильно сортировался список списков
+          result.append(line)#добавили список слов из строки в общий список
+result_sort = sorted(result)
+for string in result_sort:
+    print('{:<9}{:20}{}'.format(string[0],string[1],string[3]))
+

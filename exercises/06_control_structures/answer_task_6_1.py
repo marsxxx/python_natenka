@@ -11,9 +11,12 @@ MAC-адреса используются в формате XXXX.XXXX.XXXX
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
-result = []
+
 mac = ["aabb:cc80:7000", "aabb:dd80:7340", "aabb:ee80:7000", "aabb:ff80:7000"]
-for macad in mac:
-    macad_new = macad.replace(":", ".")
-    result.append(macad_new)
+
+result = []
+
+for m in mac:
+    result.append(m.replace(":", "."))
+
 print(result)
