@@ -66,27 +66,21 @@ access_config_2 = {
 
 
 def generate_access_config(intf_vlan_mapping, access_template):
-    result = []
-    for intf, vlan in intf_vlan_mapping.items():    #.items() позволяет вызывать ключи и значения словаря
-        result.append(f"interface {intf}")
-        for comand in access_template:
-            if comand.endswith('vlan'):
-                result.append(comand + " " +str(vlan))
-            else:
-                result.append(comand)
-    #print(result)
-    return(result)
     """
-    intf_vlan_mapping = access_config
-    access_template  = access_mode_template
-
-    interface FastEthernet0/12',
-'switchport mode access',
-'switchport access vlan 10',
-'switchport nonegotiate',
-'spanning-tree portfast',
-'spanning-tree bpduguard enable
+    intf_vlan_mapping - словарь с соответствием интерфейс-VLAN такого вида:
+        {'FastEthernet0/12':10,
+         'FastEthernet0/14':11,
+         'FastEthernet0/16':17}
+    access_template - список команд для порта в режиме access
 
     Возвращает список всех портов в режиме access с конфигурацией на основе шаблона
     """
-#generate_access_config(access_config_2, access_mode_template)
+    access_config = []
+    for intf, vlan in intf_vlan_mapping.items():
+        access_config.append(f"interface {intf}")
+        for command in access_template:
+            if command.endswith("access vlan"):
+                access_config.append(f"{command} {vlan}")
+            else:
+                access_config.append(command)
+    return access_config

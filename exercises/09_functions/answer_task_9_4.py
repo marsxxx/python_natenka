@@ -58,7 +58,6 @@ def ignore_command(command, ignore):
     Возвращает
     * True, если в команде содержится слово из списка ignore
     * False - если нет
-
     """
     ignore_status = False
     for word in ignore:
@@ -66,23 +65,17 @@ def ignore_command(command, ignore):
             ignore_status = True
     return ignore_status
 
-def convert_config_to_dict(config_filename):
-    result = {}
-    with open(config_filename) as f:
-        config_list = f.read().split('\n')
-        for command in config_list:
-            if ignore_command(command, ignore) or '!' in command:
-                pass
-            else:
-                if not command.startswith(' '):
-                    keys = command
-                    result[keys] = []
-                    temp = []
-                else:
-                    temp.append(command[1::])
-                    result[keys] = temp
-    del result['']
-    print (result)
-    return result
 
-convert_config_to_dict('config_sw1.txt')
+def convert_config_to_dict(config_filename):
+    config_dict = {}
+    with open(config_filename) as f:
+        for line in f:
+            line = line.rstrip()
+            if line and not (line.startswith("!") or ignore_command(line, ignore)):
+                if line[0].isalnum():
+                    section = line
+                    config_dict[section] = []
+                else:
+                    config_dict[section].append(line.strip())
+    return config_dict
+
