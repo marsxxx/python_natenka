@@ -74,9 +74,6 @@
 
 """
 
-from task_11_2 import create_network_map
-from draw_network_graph import draw_topology
-
 infiles = [
     "sh_cdp_n_sw1.txt",
     "sh_cdp_n_r1.txt",
@@ -84,38 +81,20 @@ infiles = [
     "sh_cdp_n_r3.txt",
 ]
 
-topology = create_network_map(infiles)
 
-def unique_network_map (topology_dict):
-    result = {}
-    test = {('R3', 'Eth0/2'): ('R5', 'Eth0/0')}
-    unique_keys = list(topology_dict.keys())
-    unique_values = list(topology_dict.values())
-    unique_dict = dict (zip(unique_keys, unique_values))
-    dup_dict = dict (zip(unique_values, unique_keys))
-    #print (unique_dict)
-    result = unique_dict.copy()
-    addi = {}
-    for key, value in unique_dict.items():
-        pair =[key, value]
-        for key_dup, value_dup in dup_dict.items():
-            pair_dup = [key_dup, value_dup]
-            if pair == pair_dup:
-                del result[key]
-                addi[key] = value
+def unique_network_map(topology_dict):
+    network_map = {}
+    for key, value in topology_dict.items():
+        if not network_map.get(value) == key:
+            network_map[key] = value
+    return network_map
 
-    for key,value in addi.items():
-        if value not in result.keys():
-            result[key] = value
 
-    return (result)
-    #print (result, '\n\n', addi)
-    #print (unique_dict,'\n'*5, dup_dict)
+# второй вариант решения
+def unique_network_map(topology_dict):
+    network_map = {}
+    for key, value in topology_dict.items():
+        key, value = sorted([key, value])
+        network_map[key] = value
+    return network_map
 
-    #for link in unique_dict:
-    #    print(link)
-
-    #print (unique_dict,'\n'*3,dup_dict)
-#unique_network_map (topology)
-unique_topology = unique_network_map (topology)
-draw_topology (unique_topology)
